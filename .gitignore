@@ -1,0 +1,12 @@
+# Java
+backend/target/
+backend/.mvn/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Local settings
+.env
+*.log
+.m2/

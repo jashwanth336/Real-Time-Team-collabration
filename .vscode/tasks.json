@@ -1,0 +1,96 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Backend: Compile",
+			"type": "shell",
+			"command": "mvn",
+			"args": [
+				"-s",
+				"maven-settings.xml",
+				"clean",
+				"compile"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/backend"
+			},
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Frontend: Build",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "build"],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Full Stack: Build",
+			"dependsOn": ["Backend: Compile", "Frontend: Build"],
+			"dependsOrder": "parallel",
+			"problemMatcher": []
+		},
+		{
+			"label": "Backend: Run on Java 25",
+			"type": "shell",
+			"command": "C:\\Users\\HP\\Downloads\\apache-maven-3.9.16-bin\\apache-maven-3.9.16\\bin\\mvn.cmd",
+			"args": [
+				"-s",
+				"maven-settings.xml",
+				"spring-boot:run"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/backend",
+				"env": {
+					"JAVA_HOME": "C:\\Users\\HP\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\25",
+					"PATH": "C:\\Users\\HP\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\25\\bin;${env:PATH}"
+				}
+			},
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "backend-runner",
+				"pattern": {
+					"regexp": ".*"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Starting SyncSpaceApplication",
+					"endsPattern": "Started SyncSpaceApplication"
+				}
+			},
+			"group": "build"
+		},
+		{
+			"label": "Frontend: Run Vite",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "dev", "--", "--host", "0.0.0.0"],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "frontend-runner",
+				"pattern": {
+					"regexp": ".*"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Starting Vite",
+					"endsPattern": "VITE v.*ready in"
+				}
+			},
+			"group": "build"
+		},
+		{
+			"label": "Full Stack: Run",
+			"dependsOn": ["Backend: Run on Java 25", "Frontend: Run Vite"],
+			"dependsOrder": "parallel",
+			"problemMatcher": []
+		}
+	]
+}
