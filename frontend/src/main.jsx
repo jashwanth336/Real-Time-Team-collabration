@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 import "./styles.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API = (import.meta.env.VITE_API_URL || "https://real-time-team-collabration.onrender.com/api").replace(/\/$/, "");
 const Auth = createContext();
 
 function readStoredUser() {
